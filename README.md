@@ -71,6 +71,14 @@ pip install django-rest-swagger
 
 ![alt text](https://github.com/rafaelsardenberg/demo-easynvest/blob/master/swagger.PNG "Swagger")
 
+## Servidor de Desenvolvimento
+
+Para executar o servidor de desenvolvimento, execute o seguinte comando:
+
+```
+python manage.py runserver
+```
+
 ## APIs REST:
 
 ### Títulos
@@ -138,6 +146,11 @@ Requisição: GET /comparartitulos/
 Parâmetros: 
 * ids: [1,2,...]
 
+## Testes
 
+Para executar os testes unitários, execute o seguinte comando:
 
+```
+python manage.py test
+```
 
