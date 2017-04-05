@@ -9,7 +9,7 @@ O software possui as seguintes funcionalidades:
 * Armazena as informações em uma base de dados SQLite;
 * Fornece APIs para manipular os títulos e suas operações.
 
-O arquivo original do site do Tesouro Nacional está em formato .xls, o que dificulta o seu processamento. Dessa forma, o arquivo foi formatado para .csv, o que facilita o seu processamento haja vista a sua padronização e também por ser de rápida leitura pelos *parses*.
+O arquivo original do site do Tesouro Nacional está em formato .xls, o que dificulta o seu processamento. Por isso, o arquivo foi formatado para .csv, a fim de facilitar o processamento haja vista a sua padronização e também por ser de rápida leitura pelos *parses*.
 
 O arquivo foi interpretado como três tabelas do banco de dados: Título(id, categoria), Período(id, mês, ano) e Operação(id, titulo_id, periodo_id, ação, valor). Assim, as consultas conseguem ser mais independentes e principalmente, as prováveis alterações dos dados serão menos custosas.
 
