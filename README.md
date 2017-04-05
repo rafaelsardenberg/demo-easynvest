@@ -105,7 +105,7 @@ Requisição: GET /titulo/{titulo_id}/resgates/
 
 Requisição: GET /operacao/
 
-#### Retorna uma operação
+#### Retornar uma operação
 
 Requisição: GET /operacao/{operacao_id}/
 
