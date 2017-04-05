@@ -117,17 +117,17 @@ Requisição: PUT /operacao/{operacao_id}/
 Parâmetros: 
 * valor: Ponto flutuante
 
-### Ações
+### Outros
 
 #### Importar dados do arquivo
 
 Função utilizada para importar para o banco de dados os dados de um arquivo csv.
 
-Requisição: GET /acoes/importar/
+Requisição: GET /importar/
 
 #### Comparar dois ou mais títulos
 
-Requisição: GET /acoes/comparar/
+Requisição: GET /comparartitulos/
 
 Parâmetros: 
 * ids: [1,2,...]
