@@ -11,6 +11,8 @@ O software possui as seguintes funcionalidades:
 
 O arquivo original do site do Tesouro Nacional está em formato .xls, o que dificulta o seu processamento. Dessa forma, o arquivo foi formatado para .csv, o que facilita o seu processamento haja vista a sua padronização e também por ser de rápida leitura pelos *parses*.
 
+O arquivo foi interpretado como três tabelas do banco de dados: Título(id, categoria), Período(id, mês, ano) e Operação(id, titulo_id, periodo_id, ação, valor). Assim, as consultas conseguem ser mais independentes e principalmente, as prováveis alterações dos dados serão menos custosas.
+
 ## Configuração do Ambiente
 
 Requisitos:
