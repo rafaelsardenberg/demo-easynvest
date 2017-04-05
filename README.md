@@ -65,4 +65,22 @@ Para a documentação das APIs, utiliza-se o Swagger. Para sua instalação, exe
 pip install django-rest-swagger
 ```
 
+## APIs REST:
 
+### Títulos
+
+#### Retornar todos os títulos
+
+Request: GET /titulo
+
+#### Retornar todas as operações de um título
+
+Request: GET /titulo/{titulo_id}/
+
+#### Retornar todas as operações de venda de um título
+
+Request: GET /titulo/{titulo_id}/vendas/
+
+#### Retornar todas as operações de resgate de um título
+
+Request: GET /titulo/{titulo_id}/resgates/
