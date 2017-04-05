@@ -101,9 +101,9 @@ Requisição: POST /operacao/
 
 Parâmetros: 
 * categoria: {NTN-B, LTF, ...}
-* mês: {1,2,3...}
+* mes: {1,2,3...}
 * ano: {8,9,10,11...)
-* ação: {venda, resgate}
+* acao: {venda, resgate}
 * valor: Ponto flutuante
 
 #### Remover uma operação
@@ -116,5 +116,22 @@ Requisição: PUT /operacao/{operacao_id}/
 
 Parâmetros: 
 * valor: Ponto flutuante
+
+### Ações
+
+#### Importar dados do arquivo
+
+Função utilizada para importar para o banco de dados os dados de um arquivo csv.
+
+Requisição: GET /acoes/importar/
+
+#### Comparar dois ou mais títulos
+
+Requisição: GET /acoes/comparar/
+
+Parâmetros: 
+* ids: [1,2,...]
+
+
 
 
