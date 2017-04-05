@@ -11,11 +11,14 @@ O software possui as seguintes funcionalidades:<br>
  
 ## Configuração do Ambiente
 
-Para executar o software, seguir o passo-a-passo descrito abaixo:
-
+Requisitos:<br>
+  ● Python
+  ● Django
+  ● Django REST Framework  
+  
 ### Python
 
-Obter a última versão do Python para o seu sistema operacional.
+Obter a última versão do Python para o seu sistema operacional pelo seguinte link:
 
 ```
 https://www.python.org/download/
@@ -23,7 +26,7 @@ https://www.python.org/download/
 
 ### pip
 
-O pip é o gerenciador de pacotes do Python. Siga as instruções Installing with get-pip.py no link a seguir:
+O pip é o gerenciador de pacotes do Python. Siga as instruções "Installing with get-pip.py" pelo seguinte link:
 
 ```
 https://pip.pypa.io/en/latest/installing/
@@ -51,7 +54,7 @@ python manage.py migrate
 
 ### Django REST Framework
 
-Django REST Framework é uma ferramenta para criação de Web APIs em um ambiente Django.
+Django REST Framework é uma ferramenta para criação de Web APIs em um ambiente Django. Para sua instalação, execute o seguinte comando:
 
 ```
 pip install djangorestframework
