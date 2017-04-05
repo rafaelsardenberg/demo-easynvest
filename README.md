@@ -91,13 +91,25 @@ Requisição: GET /titulo/
 
 Requisição: GET /titulo/{titulo_id}/
 
+Parâmetros: 
+* data_inicio(opcional): {dd/mm/aa}
+* data_fim(opcional): {dd/mm/aa}
+
 #### Retornar todas as operações de venda de um título
 
 Requisição: GET /titulo/{titulo_id}/vendas/
 
+Parâmetros: 
+* data_inicio(opcional): {dd/mm/aa}
+* data_fim(opcional): {dd/mm/aa}
+
 #### Retornar todas as operações de resgate de um título
 
 Requisição: GET /titulo/{titulo_id}/resgates/
+
+Parâmetros: 
+* data_inicio(opcional): {dd/mm/aa}
+* data_fim(opcional): {dd/mm/aa}
 
 ### Operações
 
@@ -115,8 +127,8 @@ Requisição: POST /operacao/
 
 Parâmetros: 
 * categoria: {NTN-B, LTF, ...}
-* mes: {1,2,3...}
-* ano: {8,9,10,11...)
+* mes: {01,02,03...}
+* ano: {08,09,10,11...)
 * acao: {venda, resgate}
 * valor: Ponto flutuante
 
@@ -145,6 +157,8 @@ Requisição: GET /comparartitulos/
 
 Parâmetros: 
 * ids: [1,2,...]
+* data_inicio(opcional): {dd/mm/aa}
+* data_fim(opcional): {dd/mm/aa}
 
 ## Testes
 
