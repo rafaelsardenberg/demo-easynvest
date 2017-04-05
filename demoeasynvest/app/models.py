@@ -6,8 +6,8 @@ class Titulo(models.Model):
 
 class Periodo(models.Model):
 	id = models.IntegerField(primary_key=True)
-	mes = models.IntegerField(default=0)
-	ano = models.IntegerField(default=0)
+	mes = models.CharField(max_length=255)
+	ano = models.CharField(max_length=255)
 
 class Operacao(models.Model):
 	id = models.AutoField(primary_key=True)

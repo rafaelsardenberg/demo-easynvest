@@ -20,47 +20,65 @@ class TituloViewSet(viewsets.ViewSet):
 
 	def list(self, request):
 		queryset = Titulo.objects.all()
-		serializer = TituloSerializer(queryset, many=True)
-		return Response(serializer.data)
+		response = TituloSerializer(queryset, many=True).data
+		return Response(response)
 
-	def retrieve(self, request, pk=None):
-		historico = []	
+	def retrieve(self, request, pk=None):		
+		data_inicio = formatarData(request.GET.get('data_inicio'), 1)			
+		data_fim = formatarData(request.GET.get('data_fim'), 2)		
+				
 		titulo = Titulo.objects.filter(id = pk)[0]	
-		toReturn = {'id': pk, 'categoria': titulo.categoria}		
+		response = {'id': pk, 'categoria': titulo.categoria}		
+
+		historico = []
 		periodos = Periodo.objects.all()
 		for periodo in periodos:
-			operacao_venda = Operacao.objects.filter(titulo_id = pk, periodo_id = periodo.id, acao = "venda")[0]
-			operacao_resgate = Operacao.objects.filter(titulo_id = pk, periodo_id = periodo.id, acao = "resgate")[0]
-			historico.append({'mes': periodo.mes, 'ano': periodo.ano, 'valor_venda': operacao_venda.valor, 'valor_resgate': operacao_resgate.valor})
+			data_periodo =  int(periodo.ano+periodo.mes)
+			if data_inicio <= data_periodo and data_fim >= data_periodo:			
+				operacao_venda = Operacao.objects.filter(titulo_id = pk, periodo_id = periodo.id, acao = "venda")[0]
+				operacao_resgate = Operacao.objects.filter(titulo_id = pk, periodo_id = periodo.id, acao = "resgate")[0]
+				historico.append({'mes': periodo.mes, 'ano': periodo.ano, 'valor_venda': operacao_venda.valor, 'valor_resgate': operacao_resgate.valor})	
 
-		toReturn.setdefault('historico',[]).append(historico)
-		return Response(toReturn)
+		response.setdefault('historico',[]).append(historico)
+		return Response(response)
 
 	@detail_route(methods=['get'])
 	def vendas(self, request, pk=None):
-		t = Titulo.objects.filter(id=pk)[0]
-		toReturn = {'id': t.id, 'categoria': t.categoria}
-		periodos = Periodo.objects.all()
-		valores = []
-		for periodo in periodos:		
-			valor = Operacao.objects.filter(titulo_id = pk, periodo_id = periodo.id, acao = "venda")[0].valor
-			valores.append({'mes': periodo.mes, 'ano': periodo.ano, 'valor_venda': valor})
+		data_inicio = formatarData(request.GET.get('data_inicio'), 1)			
+		data_fim = formatarData(request.GET.get('data_fim'), 2)	
 
-		toReturn.setdefault('valores',[]).append(valores)
-		return JsonResponse(toReturn)
+		titulo = Titulo.objects.filter(id=pk)[0]
+		response = {'id': titulo.id, 'categoria': titulo.categoria}
+
+		valores = []
+		periodos = Periodo.objects.all()
+		for periodo in periodos:		
+			data_periodo =  int(periodo.ano+periodo.mes)
+			if data_inicio <= data_periodo and data_fim >= data_periodo:			
+				valor = Operacao.objects.filter(titulo_id = pk, periodo_id = periodo.id, acao = "venda")[0].valor
+				valores.append({'mes': periodo.mes, 'ano': periodo.ano, 'valor_venda': valor})
+
+		response.setdefault('valores',[]).append(valores)
+		return JsonResponse(response)
 
 	@detail_route(methods=['get'])
 	def resgates(self, request, pk=None):
-		t = Titulo.objects.filter(id=pk)[0]
-		toReturn = {'id': t.id, 'categoria': t.categoria}
-		periodos = Periodo.objects.all()
-		valores = []
-		for periodo in periodos:		
-			valor = Operacao.objects.filter(titulo_id = pk, periodo_id = periodo.id, acao = "resgate")[0].valor
-			valores.append({'mes': periodo.mes, 'ano': periodo.ano, 'valor_resgate': valor})
+		data_inicio = formatarData(request.GET.get('data_inicio'), 1)			
+		data_fim = formatarData(request.GET.get('data_fim'), 2)
 
-		toReturn.setdefault('valores',[]).append(valores)
-		return JsonResponse(toReturn)
+		titulo = Titulo.objects.filter(id=pk)[0]
+		response = {'id': titulo.id, 'categoria': titulo.categoria}
+
+		valores = []
+		periodos = Periodo.objects.all()		
+		for periodo in periodos:		
+			data_periodo =  int(periodo.ano+periodo.mes)
+			if data_inicio <= data_periodo and data_fim >= data_periodo:			
+				valor = Operacao.objects.filter(titulo_id = pk, periodo_id = periodo.id, acao = "resgate")[0].valor
+				valores.append({'mes': periodo.mes, 'ano': periodo.ano, 'valor_resgate': valor})
+
+		response.setdefault('valores',[]).append(valores)
+		return JsonResponse(response)
 
 class OperacaoViewSet(viewsets.ViewSet):
 	"""
@@ -78,13 +96,13 @@ class OperacaoViewSet(viewsets.ViewSet):
 
 	def list(self, request):
 		queryset = Operacao.objects.all()
-		serializer = OperacaoSerializer(queryset, many=True)
-		return Response(serializer.data)
+		response = OperacaoSerializer(queryset, many=True).data
+		return Response(response)
 
 	def retrieve(self, request, pk=None):
 		queryset = Operacao.objects.filter(id=pk)
-		serializer = OperacaoSerializer(queryset, many=True)
-		return Response(serializer.data)
+		response = OperacaoSerializer(queryset, many=True).data
+		return Response(response)
 
 	def create(self, request):
 		categoria_req = request.GET.get('categoria')		
@@ -115,20 +133,28 @@ class OperacaoViewSet(viewsets.ViewSet):
 		Operacao.objects.filter(id=pk).delete()		
 		return Response()
 
+""" Outras APIs """
+
 def comparar(request):	
+	data_inicio = formatarData(request.GET.get('data_inicio'), 1)			
+	data_fim = formatarData(request.GET.get('data_fim'), 2)		
 	titulos = request.GET.getlist('ids')
+
+	response = []
 	periodos = Periodo.objects.all()
-	toReturn = []
 	for periodo in periodos:
-		toReturnAux = {'mes': periodo.mes, 'ano': periodo.ano}
-		valores = []
-		for titulo in titulos:
-			operacao_venda = Operacao.objects.filter(titulo_id = titulo, periodo_id = periodo.id, acao="venda")[0]
-			operacao_resgate = Operacao.objects.filter(titulo_id = titulo, periodo_id = periodo.id, acao="resgate")[0]
-			valores.append({'titulo_id': titulo, 'valor_venda': operacao_venda.valor, 'valor_resgate': operacao_resgate.valor})
-		toReturnAux.setdefault('valores',[]).append(valores)
-		toReturn.append(toReturnAux)
-	return JsonResponse(toReturn, safe=False)
+		data_periodo =  int(periodo.ano+periodo.mes)
+		if data_inicio <= data_periodo and data_fim >= data_periodo:			
+			response_aux = {'mes': periodo.mes, 'ano': periodo.ano}
+			valores = []
+			for titulo in titulos:
+				operacao_venda = Operacao.objects.filter(titulo_id = titulo, periodo_id = periodo.id, acao="venda")[0]
+				operacao_resgate = Operacao.objects.filter(titulo_id = titulo, periodo_id = periodo.id, acao="resgate")[0]
+				valores.append({'titulo_id': titulo, 'valor_venda': operacao_venda.valor, 'valor_resgate': operacao_resgate.valor})
+			response_aux.setdefault('valores',[]).append(valores)
+			response.append(response_aux)
+
+	return JsonResponse(response, safe=False)
 	
 def importar(request):	
 	Titulo.objects.all().delete()
@@ -141,10 +167,10 @@ def importar(request):
 	Titulo(id=5,categoria="NTN-C").save()
 	Titulo(id=6,categoria="NTN-F").save()
 
-	f = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'files/dados.csv'))	
-	for row in csv.reader(f):
+	arquivo = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'files/dados.csv'))	
+	for row in csv.reader(arquivo):
 		mes = obterMes(row[1].split("-")[0])
-		ano = int(row[1].split("-")[1])
+		ano = row[1].split("-")[1]
 		Periodo(id=row[0],mes=mes,ano=ano).save()				
 		for i in range(2,14):			
 			if(i < 8):
@@ -154,18 +180,30 @@ def importar(request):
 
 	return Response()
 
+""" Utils """
+
+def formatarData(data, tipo):
+	if not data and tipo == 1:
+		return 0
+	elif not data and tipo == 2:
+		return 9999999
+	else:
+		mes = data.split("/")[1]
+		ano = data.split("/")[2]
+		return int(str(ano)+str(mes))	
+
 def obterMes(nome):
 	return {
-		'jan':1,
-		'fev':2,	
-		'mar':3,		
-		'abr':4,		
-		'mai':5,		
-		'jun':6,
-		'jul':7,
-		'ago':8,
-		'set':9,
-		'out':10,
-		'nov':11,
-		'dez':12
+		'jan':'01',
+		'fev':'02',	
+		'mar':'03',		
+		'abr':'04',		
+		'mai':'05',		
+		'jun':'06',
+		'jul':'07',
+		'ago':'08',
+		'set':'09',
+		'out':'10',
+		'nov':'11',
+		'dez':'12'
 	}[nome]
