@@ -8,7 +8,9 @@ O software possui as seguintes funcionalidades:
 * Processa um arquivo(retirado do site do Tesouro Nacional). Esse arquivo contém o histórico de venda e resgate dos diversos títulos do Tesouro;
 * Armazena as informações em uma base de dados SQLite;
 * Fornece APIs para manipular os títulos e suas operações.
- 
+
+O arquivo original do site do Tesouro Nacional está em formato .xls, o que dificulta o seu processamento. Dessa forma, o arquivo foi formatado para .csv, o que facilita o seu processamento haja vista a sua padronização e também por ser de rápida leitura pelos *parses*.
+
 ## Configuração do Ambiente
 
 Requisitos:
