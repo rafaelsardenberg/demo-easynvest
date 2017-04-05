@@ -69,6 +69,8 @@ Para a documentação das APIs, utiliza-se o Swagger. Para sua instalação, exe
 pip install django-rest-swagger
 ```
 
+![alt text][demo-easynvest/Capturar.PNG]
+
 ## APIs REST:
 
 ### Títulos
