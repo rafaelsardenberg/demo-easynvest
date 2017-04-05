@@ -71,16 +71,50 @@ pip install django-rest-swagger
 
 #### Retornar todos os títulos
 
-Request: GET /titulo
+Requisição: GET /titulo/
 
 #### Retornar todas as operações de um título
 
-Request: GET /titulo/{titulo_id}/
+Requisição: GET /titulo/{titulo_id}/
 
 #### Retornar todas as operações de venda de um título
 
-Request: GET /titulo/{titulo_id}/vendas/
+Requisição: GET /titulo/{titulo_id}/vendas/
 
 #### Retornar todas as operações de resgate de um título
 
-Request: GET /titulo/{titulo_id}/resgates/
+Requisição: GET /titulo/{titulo_id}/resgates/
+
+### Operações
+
+#### Retornar todas as operações
+
+Requisição: GET /operacao/
+
+#### Retorna uma operação
+
+Requisição: GET /operacao/{operacao_id}/
+
+#### Criar ou atualizar uma operação
+
+Requisição: POST /operacao/
+
+Parâmetros: 
+* categoria: {NTN-B, LTF, ...}
+* mês: {1,2,3...}
+* ano: {8,9,10,11...)
+* ação: {venda, resgate}
+* valor: Ponto flutuante
+
+#### Remover uma operação
+
+Requisição: DELETE /operacao/{operacao_id}/
+
+#### Atualizar uma operação
+
+Requisição: PUT /operacao/{operacao_id}/
+
+Parâmetros: 
+* valor: Ponto flutuante
+
+
