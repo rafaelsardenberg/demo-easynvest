@@ -49,6 +49,17 @@ python manage.py makemigrations app
 python manage.py migrate
 ```
 
-  
+### Django REST Framework
+
+Django REST Framework é uma ferramenta para criação de Web APIs em um ambiente Django.
+
+```
+pip install djangorestframework
+```
+Para a documentação das APIs, utiliza-se o Swagger. Para sua instalação, execute o seguinte comando:
+
+```
+pip install django-rest-swagger
+```
 
 
