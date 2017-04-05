@@ -4,17 +4,17 @@ Este software foi criado em razão do processo seletivo para a vaga de Data Engi
 
 ## Visão Geral
   
-O software possui as seguintes funcionalidades:<br>
-  ● Processa um arquivo(retirado do site do Tesouro Nacional). Esse arquivo contém o histórico de venda e resgate dos diversos títulos do Tesouro;<br>
-  ● Armazena as informações em uma base de dados SQLite;<br>
-  ● Fornece APIs para manipular os títulos e suas operações.
+O software possui as seguintes funcionalidades:
+* Processa um arquivo(retirado do site do Tesouro Nacional). Esse arquivo contém o histórico de venda e resgate dos diversos títulos do Tesouro;
+* Armazena as informações em uma base de dados SQLite;
+* Fornece APIs para manipular os títulos e suas operações.
  
 ## Configuração do Ambiente
 
-Requisitos:<br>
-  ● Python
-  ● Django
-  ● Django REST Framework  
+Requisitos:
+* Python
+* Django
+* Django REST Framework  
   
 ### Python
 
